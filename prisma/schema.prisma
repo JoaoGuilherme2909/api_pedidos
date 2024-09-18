@@ -35,14 +35,16 @@ model product {
 }
 
 model order {
-  id        Int      @id @default(autoincrement())
-  paid      Boolean  @default(false)
-  createdAt DateTime @default(now())
-  client    client   @relation(fields: [clientId], references: [id])
+  id     Int     @id @default(autoincrement())
+  paid   Boolean @default(false)
+  client client  @relation(fields: [clientId], references: [id])
 
   clientId  String
   products  product[]
   employees employee[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   @@map("orders")
 }
@@ -53,4 +55,13 @@ model employee {
   orders order[]
 
   @@map("employees")
+}
+
+model user {
+  id    String @id @default(uuid())
+  name  String
+  email String
+  hash  String
+
+  @@map("users")
 }
