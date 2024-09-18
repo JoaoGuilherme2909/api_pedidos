@@ -7,13 +7,19 @@ import { CreateUser, SelectUser } from 'src/domain/user/user.dto';
 export class UserService {
   constructor(private prismaService: PrismaService) {}
 
-  async createUser({ email, name, hash }: CreateUser): Promise<SelectUser> {
+  async createUser({
+    email,
+    name,
+    hash,
+    role,
+  }: CreateUser): Promise<SelectUser> {
     const cryptHash = await argon.hash(hash);
     const user = await this.prismaService.user.create({
       data: {
         email,
         name,
         hash: cryptHash,
+        role,
       },
     });
     return {
