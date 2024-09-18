@@ -29,6 +29,7 @@ model product {
   id     String  @id @default(uuid())
   name   String
   value  Decimal
+  active Boolean @default(true)
   orders order[]
 
   @@map("products")
