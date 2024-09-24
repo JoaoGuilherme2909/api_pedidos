@@ -20,7 +20,9 @@ model client {
   name    String
   table   table   @relation(fields: [tableId], references: [id])
   tableId Int
+  user    user    @relation(fields: [userId], references: [id])
   orders  order[]
+  userId  String
 
   @@map("clients")
 }
@@ -59,11 +61,12 @@ model employee {
 }
 
 model user {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
-  hash  String
-  role  String @default("user")
+  id     String   @id @default(uuid())
+  name   String
+  email  String   @unique
+  hash   String
+  role   String   @default("user")
+  client client[]
 
   @@map("users")
 }
